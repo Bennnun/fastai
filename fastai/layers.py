@@ -218,7 +218,12 @@ class PixelShuffle_ICNR(nn.Module):
         # "Super-Resolution using Convolutional Neural Networks without Any Checkerboard Artifacts"
         # - https://arxiv.org/abs/1806.02658
         self.pad = nn.ReplicationPad2d((1,0,1,0))
-        self.blur = nn.AvgPool2d(2, stride=1)
+
+        if blur is True:
+           self.blur = nn.AvgPool2d(2, stride=1)
+        else:
+           self.blur = None
+           
         self.relu = relu(True, leaky=leaky)
 
     def forward(self,x):
